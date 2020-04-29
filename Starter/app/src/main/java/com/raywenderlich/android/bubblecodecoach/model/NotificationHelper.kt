@@ -77,10 +77,10 @@ class NotificationHelper(private val context: Context) {
     val notification = createNotification(quote, icon, person)
 
     // Create the Bubble's Metadata
-    // Add a call to createBubbleMetadata here
+    val bubbleMetaData = createBubbleMetadata(icon, fromUser)
 
     // Set the bubble metadata
-    // Add the statement to set the metadata on the notification here
+    notification.setBubbleMetadata(bubbleMetaData)
 
     // Build and Display the Notification
     notificationManager?.notify(NOTIFICATION_ID, notification.build())
@@ -111,6 +111,20 @@ class NotificationHelper(private val context: Context) {
         Intent(context, QuoteBubbleActivity::class.java),
         PendingIntent.FLAG_UPDATE_CURRENT
     )
+  }
+
+  fun createBubbleMetadata(icon: Icon, fromUser: Boolean): Notification.BubbleMetadata {
+    return Notification.BubbleMetadata.Builder()
+      .setDesiredHeight(R.dimen.bubble_height)
+      .setIcon(icon)
+      .apply {
+      if (fromUser) {
+        setAutoExpandBubble(true)
+        setSuppressNotification(true)
+      }
+    }
+    .setIntent(createIntent(REQUEST_BUBBLE))
+    .build()
   }
 
   fun createNotification(quote: Quote, icon: Icon, person: Person): Notification.Builder {

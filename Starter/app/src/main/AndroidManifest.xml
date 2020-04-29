@@ -14,6 +14,9 @@
     <activity
       android:name="com.raywenderlich.android.bubblecodecoach.ui.QuoteBubbleActivity"
       android:label="Inspirational Quote"
+      android:allowEmbedded="true"
+      android:documentLaunchMode="always"
+      android:resizeableActivity="true"
       android:theme="@style/AppTheme.NoActionBar" />
     <!-- Main Activity -->
     <activity
